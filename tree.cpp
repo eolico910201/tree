@@ -23,11 +23,36 @@ void input(int n)
     }
     sort(tree,tree+n,cmp);
 }
-
+node *marge(node *a,node *b)
+{
+	if(a==NULL||b==NULL)
+		return (a!=NULL)?a:b;
+	else if(a->id<b->id)
+	{
+		a->right=marge(a->right,b);
+		return a;
+	}
+	else
+	{
+		b->left=marge(a,b->left);
+		return b;
+	}
+}
+node *build(int begin,int end)
+{
+	if(begin==end)
+		return &tree[end];
+	else
+	{
+		int mid=(begin+end)/2;
+		node *left=build(begin,mid);
+		node *right=build(mid+1,end);
+		return marge(left,right);
+	}
+}
 
 int main()
 {
     
     return 0;
 }
-
